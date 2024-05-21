@@ -1,0 +1,243 @@
+
+
+# class Employee:
+#    def __init__(self, name, age, employee_type, organization_type, salary):
+#        self.name = name
+#        self.age = age
+#        self.employee_type = employee_type
+#        self.organization_type = organization_type
+#        self.salary = salary
+#        self.marital_status = None
+#        self.num_children = 0
+#        self.children_in_school = 0
+#        self.life_insurance_premium = 0
+#        self.self_education_allowance = 0
+#        self.donations = 0
+#        self.rental_income = 0
+#        self.dividend_income = 0
+#        self.interest_income = 0
+#        self.cash_crop_income = 0
+#        self.other_income = 0
+
+#    def get_marital_status(self):
+#        self.marital_status = input("Enter marital status (single/married): ")
+
+#    def get_num_children(self):
+#        if self.marital_status.lower() == "married":
+#            has_children = input("Do you have children? (y/n): ")
+#            if has_children.lower() == "y":
+#                self.num_children = int(input("Enter the number of children: "))
+#                self.children_in_school = int(input("Enter the number of children going to school: "))
+
+#    def get_deductions(self):
+#        self.life_insurance_premium = float(input("Enter life insurance premium: "))
+#        self.self_education_allowance = float(input("Enter self education allowance (up to Nu. 350,000): "))
+#        self.donations = float(input("Enter donations (up to 5% of total adjusted gross income): "))
+
+#    def get_income_sources(self):
+#        self.rental_income = float(input("Enter rental income: "))
+#        self.dividend_income = float(input("Enter dividend income: "))
+#        self.interest_income = float(input("Enter interest income: "))
+#        self.cash_crop_income = float(input("Enter income from sale of cash crop: "))
+#        self.other_income = float(input("Enter other income: "))
+
+#    def calculate_taxable_income(self):
+#        gross_income = self.salary + self.rental_income + self.dividend_income + self.interest_income + self.cash_crop_income + self.other_income
+#        deductions = 0
+
+#        if self.organization_type.lower() != "government" and self.employee_type.lower() != "contract":
+#            deductions += float(input("Enter Pension Scheme/Provident Fund (PF) contribution: "))
+
+#        if self.age >= 18:
+#            deductions += float(input("Enter Group Insurance Scheme (GIS) contribution: "))
+
+#        deductions += self.life_insurance_premium
+#        deductions += self.self_education_allowance
+#        deductions += min(self.donations, 0.05 * gross_income)
+#        deductions += min(self.num_children * 350000, 350000 * self.children_in_school)
+
+#        rental_income_deduction = self.rental_income * 0.2
+#        dividend_income_deduction = min(self.dividend_income, 30000) + float(input("Enter interest on loans for shareholding: "))
+#        other_income_deduction = self.other_income * 0.3
+
+#        taxable_income = gross_income - deductions - rental_income_deduction - dividend_income_deduction - other_income_deduction
+#        return taxable_income
+
+# class TaxCalculator:
+#    def calculate_tax(self, taxable_income):
+#        tax_rates = [
+#            (0, 0),
+#            (300001, 0.10),
+#            (400001, 0.15),
+#            (650001, 0.20),
+#            (1000001, 0.25),
+#            (1500001, 0.30)
+#        ]
+
+#        tax = 0
+#        for income_limit, rate in tax_rates:
+#            if taxable_income > income_limit:
+#                tax += (min(taxable_income, income_limit + 1) - income_limit) * rate
+
+#        if taxable_income >= 1000000:
+#            tax += tax * 0.10  # 10% surcharge
+
+#        return tax
+
+# class TaxApplication:
+#    def run(self):
+#        name = input("Enter your name: ")
+#        age = int(input("Enter your age: "))
+
+#        if age < 18:
+#            print("You are not eligible for tax payable.")
+#            return
+
+#        organization_type = input("Enter your organization type (government/private/corporate): ")
+#        employee_type = input("Enter your employee type (regular/contract): ")
+#        salary = float(input("Enter your salary: "))
+
+#        if isinstance(salary, str):
+#            print("Salary should be numeric.")
+#            return
+
+#        employee = Employee(name, age, employee_type, organization_type, salary)
+#        employee.get_marital_status()
+#        employee.get_num_children()
+#        employee.get_deductions()
+#        employee.get_income_sources()
+
+#        taxable_income = employee.calculate_taxable_income()
+#        tax_calculator = TaxCalculator()
+#        tax_payable = tax_calculator.calculate_tax(taxable_income)
+
+#        print(f"Name: {employee.name}")
+#        print(f"Taxable Income: Nu. {taxable_income:.2f}")
+#        print(f"Tax Payable: Nu. {tax_payable:.2f}")
+
+# if __name__ == "__main__":
+#    app = TaxApplication()
+#    app.run()
+
+
+class Employee:
+    def __init__(self, name, age, employee_type, organization_type, salary):
+        self.name = name
+        self.age = age
+        self.employee_type = employee_type
+        self.organization_type = organization_type
+        self.salary = salary
+        self.marital_status = None
+        self.num_children = 0
+        self.children_in_school = 0
+        self.life_insurance_premium = 0
+        self.self_education_allowance = 0
+        self.donations = 0
+        self.rental_income = 0
+        self.dividend_income = 0
+        self.interest_income = 0
+        self.cash_crop_income = 0
+        self.other_income = 0
+
+    def get_marital_status(self):
+        self.marital_status = input("Enter marital status (single/married): ")
+
+    def get_num_children(self):
+        if self.marital_status.lower() == "married":
+            has_children = input("Do you have children? (y/n): ")
+            if has_children.lower() == "y":
+                self.num_children = int(input("Enter the number of children: "))
+                self.children_in_school = int(input("Enter the number of children going to school: "))
+
+    def get_deductions(self):
+        self.life_insurance_premium = float(input("Enter life insurance premium: "))
+        self.self_education_allowance = float(input("Enter self education allowance (up to Nu. 350,000): "))
+        self.donations = float(input("Enter donations (up to 5% of total adjusted gross income): "))
+
+    def get_income_sources(self):
+        self.rental_income = float(input("Enter rental income: "))
+        self.dividend_income = float(input("Enter dividend income: "))
+        self.interest_income = float(input("Enter interest income: "))
+        self.cash_crop_income = float(input("Enter income from sale of cash crop: "))
+        self.other_income = float(input("Enter other income: "))
+
+    def calculate_tax_payable(self):
+        gross_income = self.salary + self.rental_income + self.dividend_income + self.interest_income + self.cash_crop_income + self.other_income
+        deductions = 0
+
+        if self.organization_type.lower() != "government" and self.employee_type.lower() != "contract":
+            deductions += float(input("Enter Pension Scheme/Provident Fund (PF) contribution: "))
+
+        if self.age >= 18:
+            deductions += float(input("Enter Group Insurance Scheme (GIS) contribution: "))
+
+        deductions += self.life_insurance_premium
+        deductions += self.self_education_allowance
+        deductions += min(self.donations, 0.05 * gross_income)
+        deductions += min(self.num_children * 350000, 350000 * self.children_in_school)
+
+        rental_income_deduction = self.rental_income * 0.2
+        dividend_income_deduction = min(self.dividend_income, 30000) + float(input("Enter interest on loans for shareholding: "))
+        other_income_deduction = self.other_income * 0.3
+
+        taxable_income = gross_income - deductions - rental_income_deduction - dividend_income_deduction - other_income_deduction
+        tax_calculator = TaxCalculator()
+        tax_payable = tax_calculator.calculate_tax(taxable_income)
+        return tax_payable
+
+class TaxCalculator:
+    def calculate_tax(self, taxable_income):
+        tax_rates = [
+            (0, 0, 0.0),
+            (300000, 0, 0.0),
+            (400000, 300001, 0.10),
+            (650000, 400001, 0.15),
+            (1000000, 650001, 0.20),
+            (1500000, 1000001, 0.25),
+            (float('inf'), 1500001, 0.30)
+        ]
+
+        tax = 0
+        prev_limit = 0
+
+        for limit, start, rate in tax_rates:
+            if taxable_income > start:
+                tax += (min(taxable_income, limit) - start) * rate
+                prev_limit = start
+
+        if taxable_income >= 1000000:
+            tax += tax * 0.10  # 10% surcharge
+
+        return tax
+
+class TaxApplication:
+    def run(self):
+        name = input("Enter your name: ")
+        age = int(input("Enter your age: "))
+
+        if age < 18:
+            print("You are not eligible for tax payable.")
+            return
+
+        organization_type = input("Enter your organization type (government/private/corporate): ")
+        employee_type = input("Enter your employee type (regular/contract): ")
+        salary = float(input("Enter your salary: "))
+
+        if isinstance(salary, str):
+            print("Salary should be numeric.")
+            return
+
+        employee = Employee(name, age, employee_type, organization_type, salary)
+        employee.get_marital_status()
+        employee.get_num_children()
+        employee.get_deductions()
+        employee.get_income_sources()
+
+        tax_payable = employee.calculate_tax_payable()
+
+        print(f"Name: {employee.name}")
+        print(f"Tax Payable: Nu. {tax_payable:.2f}")
+
+if __name__ == "__main__":
+    app = TaxApplication()
+    app.run()
